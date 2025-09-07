@@ -15,15 +15,18 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copie le code de l'application
 COPY . .
 
-# Rend le script exécutable
-RUN chmod +x start.sh
+# Collecte les fichiers statiques
+RUN python manage.py collectstatic --noinput
 
-# Crée un utilisateur non-root
-RUN adduser --disabled-password --gecos '' appuser && chown -R appuser /app
+# Effectue les migrations
+RUN python manage.py migrate
+
+# Crée un utilisateur non-root et change les permissions
+RUN adduser --disabled-password --gecos '' appuser && chown -R appuser:appuser /app
 USER appuser
 
 # Expose le port 8000
 EXPOSE 8000
 
-# Commande pour lancer l'application
-CMD ["./start.sh"]
+# Commande pour lancer l'application avec Gunicorn
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "3", "deploymentapp.wsgi:application"]
