@@ -29,4 +29,4 @@ USER appuser
 EXPOSE 8000
 
 # Commande pour lancer l'application avec Gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "3", "deploymentapp.wsgi:application"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "3", "--timeout", "120", "--keep-alive", "5", "--log-level", "info", "deploymentapp.wsgi:application"]
