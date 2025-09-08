@@ -58,7 +58,9 @@ DEBUG=False
 
 #### Fichiers de configuration Nixpacks
 
-- `nixpacks.toml` : Configuration du build et démarrage
+- `nixpacks.toml` : Configuration simplifiée du build et démarrage
+- `Procfile` : Commande de démarrage (standard)
+- `build.sh` : Script de build pour collecter les fichiers statiques
 - `.env.example` : Variables d'environnement de référence
 
 ### Autres plateformes supportées
@@ -82,7 +84,9 @@ web-deployment-project/
 ├── homepage/               # Application pour la page d'accueil
 ├── templates/             # Templates HTML
 ├── staticfiles/           # Fichiers statiques collectés
-├── nixpacks.toml          # Configuration Nixpacks pour Coolify
+├── nixpacks.toml          # Configuration Nixpacks simplifiée
+├── Procfile               # Commande de démarrage
+├── build.sh               # Script de build
 ├── requirements.txt       # Dépendances Python (Django, Gunicorn, WhiteNoise)
 ├── .env.example          # Variables d'environnement de référence
 ├── manage.py             # Script de gestion Django

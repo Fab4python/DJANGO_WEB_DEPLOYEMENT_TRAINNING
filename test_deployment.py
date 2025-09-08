@@ -47,7 +47,7 @@ def main():
     
     # Vérification des fichiers de configuration
     print("\n🔍 Vérification des fichiers de configuration:")
-    config_files = ["nixpacks.toml", ".env.example", "requirements.txt"]
+    config_files = ["nixpacks.toml", ".env.example", "requirements.txt", "Procfile", "build.sh"]
     
     for file in config_files:
         if os.path.exists(file):
