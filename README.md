@@ -8,6 +8,9 @@ Une application Django simple créée spécifiquement pour tester différentes m
 - Base de données SQLite
 - Page d'accueil statique
 - Configuration simplifiée pour le déploiement
+- **Configuration Nixpacks pour Coolify**
+- WhiteNoise pour servir les fichiers statiques
+- Gunicorn comme serveur WSGI
 
 ## Installation en local
 
@@ -34,10 +37,35 @@ L'application sera accessible sur http://127.0.0.1:8000/
 
 ## Déploiement
 
-Ce projet a été conçu pour être facilement déployé sur différentes plateformes :
+### Déploiement avec Coolify et Nixpacks (Recommandé)
+
+Ce projet est configuré avec **Nixpacks** pour un déploiement simple sur **Coolify** :
+
+1. **Créer un nouveau projet** dans Coolify
+2. **Connecter votre repository Git**
+3. **Sélectionner Nixpacks** comme buildpack (automatiquement détecté grâce au fichier `nixpacks.toml`)
+4. **Configurer les variables d'environnement** :
+   - `SECRET_KEY` : Une clé secrète Django sécurisée
+   - `DEBUG` : `False` pour la production
+5. **Déployer** 🚀
+
+#### Variables d'environnement requises
+
+```bash
+SECRET_KEY=votre-clé-secrète-django-ici
+DEBUG=False
+```
+
+#### Fichiers de configuration Nixpacks
+
+- `nixpacks.toml` : Configuration du build et démarrage
+- `.env.example` : Variables d'environnement de référence
+
+### Autres plateformes supportées
+
+Ce projet peut aussi être déployé sur :
 
 - VPS traditionnel
-- Coolify
 - Docker
 - Heroku
 - DigitalOcean App Platform
@@ -48,10 +76,16 @@ Ce projet a été conçu pour être facilement déployé sur différentes platef
 ```
 web-deployment-project/
 ├── deploymentapp/          # Configuration principale Django
+│   ├── settings.py         # Paramètres configurés pour la production
+│   ├── urls.py
+│   └── wsgi.py
 ├── homepage/               # Application pour la page d'accueil
 ├── templates/             # Templates HTML
+├── staticfiles/           # Fichiers statiques collectés
+├── nixpacks.toml          # Configuration Nixpacks pour Coolify
+├── requirements.txt       # Dépendances Python (Django, Gunicorn, WhiteNoise)
+├── .env.example          # Variables d'environnement de référence
 ├── manage.py             # Script de gestion Django
-├── requirements.txt      # Dépendances Python
-├── db.sqlite3           # Base de données SQLite (créée après migration)
-└── README.md           # Ce fichier
+├── db.sqlite3            # Base de données SQLite (créée après migration)
+└── README.md            # Ce fichier
 ```
